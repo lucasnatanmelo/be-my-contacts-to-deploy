@@ -1,13 +1,19 @@
-const db = require('../../database/index');
+require('dotenv').config();
+
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  connectionString: process.env.POSTGRES_URL,
+});
 
 class CategoryRepository {
   async findAll() {
-    const rows = await db.query('SELECT * FROM categories ORDER BY name');
+    const rows = await pool.query('SELECT * FROM categories ORDER BY name');
     return rows;
   }
 
   async findById(id) {
-    const [row] = await db.query(`
+    const [row] = await pool.query(`
         SELECT *
         FROM categories
         WHERE categories.id = $1
@@ -17,7 +23,7 @@ class CategoryRepository {
   }
 
   async create({ name }) {
-    const [row] = await db.query(`
+    const [row] = await pool.query(`
             INSERT INTO CATEGORIES(name)
             VALUES($1)
             RETURNING *
@@ -27,7 +33,7 @@ class CategoryRepository {
   }
 
   async delete(id) {
-    const deleteOp = await db.query(`
+    const deleteOp = await pool.query(`
     DELETE FROM categories
     WHERE id = $1
     `, [id]);

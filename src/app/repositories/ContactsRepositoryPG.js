@@ -1,13 +1,19 @@
 // Instalar uuidV4 para criação de hashs
 // yarn add uuidv4
 
-const db = require('../../database/index');
+require('dotenv').config();
+
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  connectionString: process.env.POSTGRES_URL,
+});
 
 class ContactsRepository {
   async findAll(orderBy = 'ASC') {
     const direction = orderBy.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
 
-    const rows = await db.query(`
+    const rows = await pool.query(`
         SELECT contacts.*, categories.name AS category_name
         FROM contacts
         LEFT JOIN categories ON categories.id = contacts.category_id
@@ -17,7 +23,7 @@ class ContactsRepository {
   }
 
   async findById(id) {
-    const [row] = await db.query(`
+    const [row] = await pool.query(`
         SELECT contacts.*, categories.name AS category_name
         FROM contacts
         LEFT JOIN categories ON categories.id = contacts.category_id
@@ -27,14 +33,14 @@ class ContactsRepository {
   }
 
   async findByEmail(email) {
-    const [row] = await db.query('SELECT * FROM contacts WHERE email = $1', [email]);
+    const [row] = await pool.query('SELECT * FROM contacts WHERE email = $1', [email]);
     return row;
   }
 
   async create({
     name, email, phone, category_id,
   }) {
-    const [row] = await db.query(
+    const [row] = await pool.query(
       `
             INSERT INTO contacts(name, email, phone,category_id)
             VALUES($1, $2, $3, $4)
@@ -49,7 +55,7 @@ class ContactsRepository {
   async update(id, {
     name, email, phone, category_id,
   }) {
-    const [row] = await db.query(`
+    const [row] = await pool.query(`
             UPDATE contacts
             SET name = $1, email = $2, phone = $3, category_id = $4
             WHERE id = $5
@@ -59,7 +65,7 @@ class ContactsRepository {
   }
 
   async delete(id) {
-    const deleteOp = await db.query('DELETE FROM contacts WHERE id = $1', [id]);
+    const deleteOp = await pool.query('DELETE FROM contacts WHERE id = $1', [id]);
     return deleteOp;
   }
 }
