@@ -16,7 +16,7 @@ class ContactsRepository {
     const rows = await pool.query(`
         SELECT contacts.*, categories.name AS category_name
         FROM contacts
-        LEFT JOIN categories ON categories.id = contacts.categoryq_id
+        LEFT JOIN categories ON categories.id = contacts.category_id
         ORDER BY contacts.name ${direction}
         `);
 
