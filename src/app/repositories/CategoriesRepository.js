@@ -23,7 +23,7 @@ class CategoryRepository {
   }
 
   async create({ name }) {
-    const [row] = await pool.query(`
+    const row = await pool.query(`
             INSERT INTO CATEGORIES(name)
             VALUES($1)
             RETURNING *
