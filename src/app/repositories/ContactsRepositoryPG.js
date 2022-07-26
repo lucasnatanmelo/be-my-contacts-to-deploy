@@ -54,19 +54,21 @@ class ContactsRepository {
             `,
       [name, email, phone, category_id],
     );
-
-    return rows;
+    const row = rows[0];
+    return row;
   }
 
   async update(id, {
     name, email, phone, category_id,
   }) {
-    const [row] = await pool.query(`
+    const { rows } = await pool.query(`
             UPDATE contacts
             SET name = $1, email = $2, phone = $3, category_id = $4
             WHERE id = $5
             RETURNING *
         `, [name, email, phone, category_id, id]);
+
+    const row = rows[0];
     return row;
   }
 
