@@ -13,14 +13,12 @@ class ContactsRepository {
   async findAll(orderBy = 'ASC') {
     const direction = orderBy.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
 
-    const contacts = await pool.query(`
+    const rows = await pool.query(`
         SELECT contacts.*, categories.name AS category_name
         FROM contacts
         LEFT JOIN categories ON categories.id = contacts.categoryq_id
         ORDER BY contacts.name ${direction}
         `);
-
-    const { rows } = contacts;
 
     return rows; // Em Join categories ON id = category_id -> serão unidas as duas tabelas
   }
