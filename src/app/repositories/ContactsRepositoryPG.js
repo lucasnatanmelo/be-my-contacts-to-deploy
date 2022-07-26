@@ -68,8 +68,7 @@ class ContactsRepository {
             RETURNING *
         `, [name, email, phone, category_id, id]);
 
-    const row = rows[0];
-    return row;
+    return rows;
   }
 
   async delete(id) {
