@@ -8,9 +8,7 @@ const pool = new Pool({
 
 class CategoryRepository {
   async findAll() {
-    const contacts = await pool.query('SELECT * FROM categories ORDER BY name');
-
-    const { rows } = contacts;
+    const { rows } = await pool.query('SELECT * FROM categories ORDER BY name');
     return rows;
   }
 
