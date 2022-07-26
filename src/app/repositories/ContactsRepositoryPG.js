@@ -38,10 +38,10 @@ class ContactsRepository {
 
   async findByEmail(email) {
     const contact = await pool.query(`
-    SELECT *
-    FROM contacts
-    WHERE email = $1
-    `, [email]);
+      SELECT *
+      FROM contacts
+      WHERE email = $1
+      `, [email]);
 
     const row = contact.rows[0];
     return row;
@@ -52,7 +52,7 @@ class ContactsRepository {
   }) {
     const { rows } = await pool.query(
       `
-            INSERT INTO contacts(name, email, phone,category_id)
+            INSERT INTO contacts(name, email, phone, category_id)
             VALUES($1, $2, $3, $4)
             RETURNING *
             `,
