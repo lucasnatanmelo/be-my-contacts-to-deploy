@@ -46,7 +46,7 @@ class ContactsRepository {
   async create({
     name, email, phone, category_id,
   }) {
-    const [row] = await pool.query(
+    const { rows } = await pool.query(
       `
             INSERT INTO contacts(name, email, phone,category_id)
             VALUES($1, $2, $3, $4)
@@ -55,7 +55,7 @@ class ContactsRepository {
       [name, email, phone, category_id],
     );
 
-    return row;
+    return rows;
   }
 
   async update(id, {
