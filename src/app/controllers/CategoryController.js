@@ -22,18 +22,18 @@ class CategoryController {
   async delete(request, response) {
     const { id } = request.params;
 
-    const category = await CategoriesRespository.findById(id);
+    // const category = await CategoriesRespository.findById(id);
 
-    console.log(category);
+    // console.log(category);
 
-    if (!isValidUUID(id)) {
-      return response.status(400).json({ error: 'Invalid category id' });
-    }
+    // if (!isValidUUID(id)) {
+    //   return response.status(400).json({ error: 'Invalid category id' });
+    // }
 
-    if (!category) {
-      // 404: Not Found
-      return response.status(404).json({ error: 'Category not found' });
-    }
+    // if (!category) {
+    //   // 404: Not Found
+    //   return response.status(404).json({ error: 'Category not found' });
+    // }
 
     await CategoriesRespository.delete(id);
     // 204: No Content

@@ -12,15 +12,15 @@ class CategoryRepository {
     return rows;
   }
 
-  async findById(id) {
-    const [row] = await pool.query(`
-        SELECT *
-        FROM categories
-        WHERE categories.id = $1
-    `, [id]);
+  //   async findById(id) {
+  //     const [row] = await pool.query(`
+  //         SELECT *
+  //         FROM categories
+  //         WHERE categories.id = $1
+  //     `, [id]);
 
-    return row;
-  }
+  //     return row;
+  //   }
 
   async create({ name }) {
     const { rows } = await pool.query(`
@@ -29,13 +29,15 @@ class CategoryRepository {
             RETURNING *
         `, [name]);
 
-    return rows;
+    const row = rows[0];
+    return row;
   }
 
   async delete(id) {
     const deleteOp = await pool.query(`
     DELETE FROM categories
     WHERE id = $1
+    RETURNING *
     `, [id]);
     return deleteOp;
   }
