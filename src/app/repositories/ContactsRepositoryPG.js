@@ -19,8 +19,8 @@ class ContactsRepository {
         LEFT JOIN categories ON categories.id = contacts.category_id
         ORDER BY contacts.name ${direction}
         `);
-    const { rows } = contacts;
 
+    const { rows } = contacts;
     return rows; // Em Join categories ON id = category_id -> serão unidas as duas tabelas
   }
 
@@ -32,7 +32,7 @@ class ContactsRepository {
         WHERE contacts.id = $1
         `, [id]);
 
-    const row = contact.rows;
+    const row = contact.rows[0];
     return row;
   }
 
