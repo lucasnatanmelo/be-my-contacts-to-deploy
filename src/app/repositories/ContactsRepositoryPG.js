@@ -26,7 +26,7 @@ class ContactsRepository {
   }
 
   async findById(id) {
-    const [row] = await pool.query(`
+    const row = await pool.query(`
         SELECT contacts.*, categories.name AS category_name
         FROM contacts
         LEFT JOIN categories ON categories.id = contacts.category_id
