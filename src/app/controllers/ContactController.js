@@ -20,22 +20,18 @@ class ContactController {
   async show(request, response) {
     const { id } = request.params;
 
-    // if (!isValidUUID(id)) {
-    //   return response.status(400).json({ error: 'Invalid contact id' });
-    // }
-
-    try {
-      const contact = await ContactsRepository.findById(id);
-    } catch (error) {
-      response.status(404).json(error);
+    if (!isValidUUID(id)) {
+      return response.status(400).json({ error: 'Invalid contact id' });
     }
 
-    // if (!contact) {
-    //   // 404: Not Found
-    //   return response.status(404).json({ error: 'Contact not found' });
-    // }
+    const contact = await ContactsRepository.findById(id);
 
-    // return response.json(contact);
+    if (!contact) {
+      // 404: Not Found
+      return response.status(404).json({ error: 'Contact not found' });
+    }
+
+    return response.json(contact);
   }
 
   // Criar um novo registro
