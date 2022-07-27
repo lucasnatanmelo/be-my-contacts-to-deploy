@@ -1,5 +1,13 @@
 module.exports = (request, response, next) => {
-  response.setHeader('Access-Control-Allow-Origin', 'https://my-contacts-ten.vercel.app'); // 1
+//   response.setHeader('Access-Control-Allow-Origin', 'https://my-contacts-ten.vercel.app'); // 1
+//   response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); // 1
+
+  const allowedOrigins = ['https://my-contacts-ten.vercel.app', 'http://localhost:3000'];
+  const { origin } = request.headers;
+  if (allowedOrigins.includes(origin)) {
+    request.setHeader('Access-Control-Allow-Origin', origin);
+  }
+
   response.setHeader('Access-Control-Allow-Methods', '*'); // 2
   response.setHeader('Access-Control-Allow-Headers', '*'); // 3
   response.setHeader('Access-Control-Max-Age', '10'); // 4
