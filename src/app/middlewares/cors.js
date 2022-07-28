@@ -3,7 +3,8 @@ module.exports = (request, response, next) => {
 //   response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); // 1
 
   const allowedOrigins = ['https://my-contacts-ten.vercel.app', 'http://localhost:3000'];
-  const { origin } = request.headers.origin;
+
+  const { origin } = request.headers;
   if (allowedOrigins.includes(origin)) {
     request.setHeader('Access-Control-Allow-Origin', origin);
   }
