@@ -1,6 +1,6 @@
 module.exports = (request, response, next) => {
-  response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); // 1 To access on LocalHost
-  // response.setHeader('Access-Control-Allow-Origin', 'https://mycontacts-chi.vercel.app'); // 1
+  //   response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); // 1 To access LocalHost
+  response.setHeader('Access-Control-Allow-Origin', 'https://mycontacts-chi.vercel.app'); // 1
   response.setHeader('Access-Control-Allow-Methods', '*'); // 2
   response.setHeader('Access-Control-Allow-Headers', '*'); // 3
   response.setHeader('Access-Control-Max-Age', '10'); // 4
